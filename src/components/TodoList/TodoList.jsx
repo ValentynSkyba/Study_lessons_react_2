@@ -1,23 +1,89 @@
-import todos from './../../assets/todos.json'
-import s from './TodoList.module.css'
+import todosData from "./../../assets/todos.json";
+import s from "./TodoList.module.css";
+import { TodoItem } from "./TodoItem";
+import { useState } from "react";
+import { nanoid } from "nanoid";
+
 export const TodoList = () => {
-	return (
-		<>
-			<div className='flex'>
-				<input className={s.input} type='text' />
-				<button className='btn border'>Add</button>
-			</div>
-			<ul className={s.list}>
-				{todos.map(item => (
-					<li className={s.item} key={item.id}>
-						<input type='checkbox' />
-						<span>{item.todo}</span>
-						<button className='btn border' size='18px'>
-							Delete
-						</button>
-					</li>
-				))}
-			</ul>
-		</>
-	)
-}
+  const [todos, setTodos] = useState(todosData);
+  const [newTodoTitle, setNewTodoTile] = useState("");
+
+  const handleAddTodo = () => {
+    const newTodo = {
+      //   id: new Date().getTime(),
+      id: nanoid(),
+      todo: newTodoTitle,
+      completed: false,
+    };
+    setTodos((prev) => [...prev, newTodo]);
+    setNewTodoTile("");
+  };
+
+  const handleDeleteSelected = () => {
+    setTodos((prev) => prev.filter((item) => !item.completed));
+  };
+
+  const handleDeleteAll = () => {
+    setTodos([]);
+  };
+
+  const handleToggleTodo = (id) => {
+    console.log(id);
+    // setTodos((prev) =>
+    //   prev.map((item) =>
+    //     item.id === id ? { ...item, completed: !item.completed } : item
+    //   )
+    // );
+    setTodos((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          return { ...item, completed: !item.completed };
+        } else {
+          return item;
+        }
+      })
+    );
+  };
+
+  const handleDeleteTodo = (id) => {
+    //Identification
+    // filter
+    //massive
+    console.log(id);
+    const newData = todos.filter((item) => item.id !== id);
+    console.log(newData);
+    setTodos((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  return (
+    <>
+      <div className="flex">
+        <input
+          value={newTodoTitle}
+          onChange={(e) => setNewTodoTile(e.target.value)}
+          className={s.input}
+          type="text"
+        />
+        <button onClick={handleAddTodo} className="btn border">
+          Add
+        </button>
+      </div>
+      <ul className={s.list}>
+        {todos.map((item) => (
+          <TodoItem
+            key={item.id}
+            {...item}
+            handleDeleteTodo={handleDeleteTodo}
+            handleToggleTodo={handleToggleTodo}
+          />
+        ))}
+      </ul>
+      <button onClick={handleDeleteSelected} className="btn border">
+        Delete Selected
+      </button>
+      <button onClick={handleDeleteAll} className="btn border">
+        Delete All
+      </button>
+    </>
+  );
+};
