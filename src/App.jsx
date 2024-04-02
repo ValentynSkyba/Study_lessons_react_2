@@ -3,16 +3,14 @@ import { Counter } from "./components/Counter/Counter";
 import { TodoList } from "./components/TodoList/TodoList";
 import Vote from "./components/Vote/Vote";
 
-const App = () => {
-  return (
-    <>
-      {/* <Counter /> */}
-      {/* <ColorPicker />
-      <ColorPicker /> */}
-      {/* <TodoList /> */}
-      <Vote />
-    </>
-  );
-};
+const App = () => (
+  <>
+    <Counter />
+    {/* <ColorPicker />
+        <ColorPicker /> */}
+    {/* <TodoList /> */}
+    <Vote />
+  </>
+);
 
 export default App;
