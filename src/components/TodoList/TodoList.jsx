@@ -1,12 +1,23 @@
 import todosData from "./../../assets/todos.json";
 import s from "./TodoList.module.css";
 import { TodoItem } from "./TodoItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 
 export const TodoList = () => {
-  const [todos, setTodos] = useState(todosData);
+  const [todos, setTodos] = useState(() => {
+    const savedData = JSON.parse(window.localStorage.getItem("todo-data"));
+    if (savedData?.length) {
+      // знак питання це теж саме що перевірка savedData && savedData?.length
+      return savedData;
+    }
+    return [];
+  });
   const [newTodoTitle, setNewTodoTile] = useState("");
+
+  useEffect(() => {
+    window.localStorage.setItem("todo-data", JSON.stringify(todos));
+  }, [todos]);
 
   const handleAddTodo = () => {
     const newTodo = {
