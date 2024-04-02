@@ -5,6 +5,8 @@ import { TodoList } from "./components/TodoList/TodoList";
 import Vote from "./components/Vote/Vote";
 import Modal from "./components/modal/Modal";
 import Button from "./components/Button/Button";
+import CounterState from "./components/State/CounterState";
+import Products from "./components/State/Products";
 
 const App = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -24,9 +26,9 @@ const App = () => {
       {/* <Counter /> */}
       {/* <ColorPicker />
         <ColorPicker /> */}
-      <TodoList />
-      <Button onClick={openModal}>Open Modal</Button>
-      {isOpen && (
+      {/* <TodoList /> */}
+      {/* <Button onClick={openModal}>Open Modal</Button> */}
+      {/* {isOpen && (
         <Modal closeModal={closeModal}>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -35,7 +37,9 @@ const App = () => {
             Quibusdam, dolore.
           </p>
         </Modal>
-      )}
+      )} */}
+      <CounterState />
+      <Products />
       {/* <Vote /> */}
     </>
   );
