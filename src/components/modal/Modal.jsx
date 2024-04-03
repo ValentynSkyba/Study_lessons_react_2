@@ -24,7 +24,7 @@ const Modal = ({ children, title = "Default modal", closeModal }) => {
       console.log("modal close");
       clearInterval(intervalID);
       clearTimeout(timeoutId);
-      removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
       console.log("Time is stopped");
     };
   }, [closeModal]);
